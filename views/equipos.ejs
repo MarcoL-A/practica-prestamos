@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Equipos</title>
+</head>
+<body>
+  <h1>Equipos en préstamo</h1>
+
+  <form action="/equipos" method="get">
+    <label>Buscar por nombre
+      <input name="q" value="<%= filtros.q %>" maxlength="80">
+    </label>
+
+    <label>Categoría
+      <select name="categoria">
+        <option value="">Todas</option>
+        <% for (const c of categorias) { %>
+          <option value="<%= c %>" <%= filtros.categoria === c ? 'selected' : '' %>><%= c %></option>
+        <% } %>
+      </select>
+    </label>
+
+    <label>Estado
+      <select name="disponible">
+        <option value="" <%= filtros.disponible === '' ? 'selected' : '' %>>Todos</option>
+        <option value="si" <%= filtros.disponible === 'si' ? 'selected' : '' %>>Disponible</option>
+        <option value="no" <%= filtros.disponible === 'no' ? 'selected' : '' %>>Prestado</option>
+      </select>
+    </label>
+
+    <label>Ordenar por
+      <select name="orden">
+        <option value="codigo" <%= filtros.orden === 'codigo' ? 'selected' : '' %>>Código</option>
+        <option value="nombre" <%= filtros.orden === 'nombre' ? 'selected' : '' %>>Nombre</option>
+      </select>
+    </label>
+
+    <button>Buscar</button>
+    <a href="/equipos">Quitar filtros</a>
+  </form>
+
+  <% if (equipos.length === 0) { %>
+    <p>No hay equipos que cumplan los filtros en esta página.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const equipo of equipos) { %>
+          <tr>
+            <td><%= equipo.codigo %></td>
+            <td><a href="/equipos/<%= equipo.id %>"><%= equipo.nombre %></a></td>
+            <td><%= equipo.categoria %></td>
+            <td><%= equipo.estado %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } %>
+
+  <nav>
+    <p>Página <%= filtros.pagina %></p>
+    <% if (anterior) { %><a href="<%= anterior %>">Anterior</a><% } %>
+    <% if (siguiente) { %><a href="<%= siguiente %>">Siguiente</a><% } %>
+  </nav>
+</body>
+</html>

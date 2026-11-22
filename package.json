@@ -1,0 +1,19 @@
+{
+  "name": "practica-prestamos",
+  "version": "1.0.0",
+  "description": "Gestión de préstamos de material informático con Express, pg y EJS",
+  "private": true,
+  "scripts": {
+    "start": "node --env-file=.env src/server.mjs",
+    "init-db": "node --env-file=.env src/init-db.mjs",
+    "pruebas": "node --env-file=.env pruebas.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.3.0",
+    "pg": "^8.23.1"
+  }
+}
